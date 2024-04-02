@@ -9,7 +9,7 @@
 #include "layerInfo.hpp"
 #endif
 
-#include "testImage.h"
+#include "../testImage.h"
 
 #include <chrono>
 
