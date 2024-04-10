@@ -13,8 +13,6 @@
 #include "infer_v1_0/src/xinfer_linux.c"
 
 
-#define UIO_INVERT_Nsjjk    0L
-
 #define UIO_DMA_N           0
 
 #define XST_FAILURE         1L    //This is nice to have :)
