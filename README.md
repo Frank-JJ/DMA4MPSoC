@@ -1,25 +1,25 @@
 # DMA4MPSoC
 
-This repository is made availble with the intent to showcase a robotics use-case, where a Convolutional Neural Network (CNN) is accelerated using the MPSoC Ultra96-V2, with the data transfer to and from CNN further accelerated using Direct Memory Access (DMA).
+This repository is made available with the intent to showcase a robotics use-case, where a Convolutional Neural Network (CNN) is accelerated using the MPSoC Ultra96-V2, with the data transfer to and from CNN further accelerated using Direct Memory Access (DMA).
 Using DMA for the data transfer allows sharing of physical memory between Processing System (PS) and Programmable Logic (PL) of the MPSoC, and significantly improves performance for transfer time and power usage when compared to a standard AXI-Lite solution.
 
 The MPSoC4Drones framework is used to implement the CNN with DMA on the MPSoC. The as of 2024-04-10 [Readme for the MPSoC4Drones repository](#mpsoc4drones) is given further below for convenience.
 
 Three ROS 2 Nodes are run on Ubuntu on the PS, making use of the CNN. To facilitate DMA between PS and PL, a part of physical memory is reserved as generic User space I/O, thus circumventing the Memory Management Unit of Ubuntu. The [DMA Linux Kernel Module](https://github.com/DIII-SDU-Group/ReservedMemory-LKM-and-UserSpaceAPI) is used to transfer data between Ubuntu user space and the reserved memory address.
 
-## Creating and traning the CNN
+## Creating and training the CNN
 
 The CNN has been created and trained in Python using Tensorflow to classify an input image as one of four simplified screw types.
 
 The code for creating and training the CNN is given in the `CNN\construct_and_train` folder.
 
-A saved Tensorflow model can alse be found in this folder.
+A saved Tensorflow model can also be found in this folder.
 
 ### Training data
 
 Training data can be found in the `CNN\get_images\imgs` folder.
 
-To obtain images for training, a package has been created for extracting images from a ROS 2 Rosbag using topic "image_raw". This package can be found in the `CNN\get_images\bag_to_images` folder.
+To obtain images for training, a package has been created for extracting images from a ROS 2 Rosbag using the topic "image_raw". This package can be found in the `CNN\get_images\bag_to_images` folder.
 
 ## Accelerating the CNN
 
@@ -41,7 +41,7 @@ Running the `mp4d-setup` command should generate the block design with CNN IP an
 
 ## Making PL available to PS
 
-Reserving the physical memory and making the CNN and AXI DMA blocks availble for PS is achieved using the device tree file: `src/system-user.dtsi`
+Reserving the physical memory and making the CNN and AXI DMA blocks available for PS is achieved using the device tree file: `src/system-user.dtsi`
 
 ## Deploying on MPSoC
 
@@ -49,13 +49,13 @@ The [MPSoC4Drones Readme](#mpsoc4drones) explains how to further deploy on the M
 
 ## PS for robotics use-case
 
-The robotics use-case consists of controlling a 2-DOF robotic arm to align a screwdriver to a screw head. Two motors are used, with the first rotating the entire arm, and the second rotating the screwdriver. A camera mounted near the end of the the arm is used for monitoring and detecting the screws.
+The robotics use-case consists of controlling a 2-DOF robotic arm to align a screwdriver to a screw head. Two motors are used, with the first rotating the entire arm, and the second rotating the screwdriver. A camera mounted near the end of the arm is used for monitoring and detecting the screws.
 
 The CNN accelerated in the PL, is used for detecting one of four simplified screw types based on their heads. Three ROS 2 nodes are deployed on the PS, for obtaining images, interfacing with CNN, and controlling motors.
 
 Code for the ROS 2 nodes can be found in the `Userspace\src\screw_it` folder.
 
-Test files for this project are also made availble. One for the implementation using DMA, and one with AXI-Lite for comparison. The files are `Userspace/src/screw_it/src/CNN_interface_test.cpp` and `Userspace/src/screw_it/src/CNN_axi_interface_test.cpp` respectively.
+Test files for this project are also made available, one for the implementation using DMA, and one with AXI-Lite for comparison. The files are `Userspace/src/screw_it/src/CNN_interface_test.cpp` and `Userspace/src/screw_it/src/CNN_axi_interface_test.cpp` respectively.
 
 # MPSoC4Drones
 
